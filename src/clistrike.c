@@ -28,10 +28,6 @@ int main(int argc, char ** argv) {
         0,
     };
 
-    POSITION init_position = {
-        0,
-        0,
-    };
 
     int i = 0;
     int j = 0;
