@@ -21,12 +21,27 @@ int main(int argc, char ** argv) {
     // create variables for maximum screen size
     int maxline, maxcol;
 
+
+    // pointer for storing objects and its counter
+    int objcounter = 0;
+    OBJ * objpoint[100];
+
     // struct that contains the current position
     // for further information, look data.h/.c
-    POSITION current_position = {
-        0,
-        0,
+    OBJ player = {
+        {
+            0,
+            0,
+        }, // field for size
+        {
+            0,
+            0,
+        }, // field for position
     };
+
+
+    objpoint[objcounter] = &player;
+    objcounter++;
 
 
     int i = 0;
@@ -62,8 +77,10 @@ int main(int argc, char ** argv) {
 
     printw("MAX-Y: %d\nMAX-X: %d\n", maxcol, maxline);
 
-    current_position.x = (maxcol - 1) / 2;
-    current_position.y = (maxline - 1)  / 2;
+    player.position.x = (maxcol - 1) / 2;
+    player.position.y = (maxline - 1)  / 2;
+    player.size.x = 1;
+    player.size.y = 1;
 
     while(i == 0) {
         getmaxyx(stdscr, maxline, maxcol);
@@ -80,42 +97,43 @@ int main(int argc, char ** argv) {
                 printw("continue...\n");
                 break;
             case 'd':
-                if((current_position.x + 1) / BTABLEH >= maxcol)
+                if((player.position.x + player.size.x) / BTABLEH >= maxcol)
                     break;
-                current_position.x++;
+                player.position.x++;
                 break;
             case 'a':
-                if((current_position.x - 1) / BTABLEH <= 0) 
+                if((player.position.x - player.size.x) / BTABLEH <= 0) 
                     break;
-                current_position.x--;
+                player.position.x--;
                 break;
             case 's':
-                if((current_position.y + 1) / BTABLEV >= maxline)
+                if((player.position.y + player.size.y) / BTABLEV >= maxline)
                     break;
-                current_position.y++;
+                player.position.y++;
                 break;
             case 'w':
-                if((current_position.y - 1) / BTABLEV <= 0) 
+                if((player.position.y - player.size.y) / BTABLEV <= 0) 
                     break;
-                current_position.y--;
+                player.position.y--;
                 break;
         }
 
-        mvprintw(
-                current_position.y  / BTABLEV,
-                current_position.x  / BTABLEH,
-                "%lc",
-                (BOFFSET +
-                    braille_table[current_position.x % BTABLEH][current_position.y % BTABLEV]
-                    ));
+        clear();
 
-        mvprintw(maxline - 1, 0, "current main braille[%d][%d]", current_position.x % BTABLEH, current_position.y % BTABLEV);
-        mvprintw(maxline - 2, 0, "current main cell[%d][%d]", current_position.x / BTABLEH, current_position.y / BTABLEV);
+        for(i = 0; i <= objcounter; i++) {
+            mvprintw(maxline - i, 0, "objnumber[%d]: braille position[%d][%d], cell position[%d][%d]", 
+                    i,
+                    objpoint[i] -> position.x % BTABLEH,
+                    objpoint[i] -> position.y % BTABLEV,
+                    objpoint[i] -> position.x / BTABLEH,
+                    objpoint[i] -> position.y / BTABLEV
+                    );
+        }
+
         refresh();
 
         move(0, 0);
     }
-
 
     getch();
     endwin();

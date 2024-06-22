@@ -1,15 +1,16 @@
 #ifndef DATA_H_
 #define DATA_H_
 
-/*typedef struct PositionComponent {*/
-/*    int braille;*/
-/*    int screen;*/
-/*} PCOMP;*/
-/**/
-typedef struct PositionStruct {
+typedef struct CoordinateStruct {
     int x;
     int y;
-} POSITION;
+} COORDINATE;
+
+typedef struct Object {
+    COORDINATE size;
+
+    COORDINATE position;
+} OBJ;
 
 
 #endif
