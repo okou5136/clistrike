@@ -7,7 +7,11 @@
 #include <wchar.h>
 #include <locale.h>
 
+// this is where all variables that are exclusive to this program
+// if you ever encounter the variables you are not familiar with, look through this file first.
+// P.S. I know it's a bad practice, but, who cares? it's my personal project anyway.
 #include "data.h"
+
 #include "draw.h"
 #include "error.h"
 #include "opt.h"

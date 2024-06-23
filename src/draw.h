@@ -4,11 +4,7 @@
 #include <ncurses.h>
 #include "data.h"
 
-typedef enum DrawDirection {
-    Vertical,
-    Horizontal,
-} DrawDirection;
-
+// the reason why x and y length are not defined as COORDINATE is these variables are most likely set manually.
 void draw_line(WINDOW * win, COORDINATE pos, DrawDirection direct, int x_length, int y_length, COORDINATE max);
 
 // function for drawing object log

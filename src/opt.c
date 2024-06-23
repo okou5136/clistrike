@@ -11,7 +11,7 @@ OPTION parsearg(int argc, char ** argv) {
     };
     for(int i = 0; i < argc; i++) {
         if(!strcmp(argv[i], "-h")) {
-            print_help(0);
+            print_help(10);
             exit(0);
         }
         else if(!strcmp(argv[i], "-d")) {
