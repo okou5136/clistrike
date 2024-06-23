@@ -1,17 +1,16 @@
 #include <ncurses.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 // header files for unicode support. needed to render brailles.
 #include <wchar.h>
 #include <locale.h>
 
 #include "data.h"
+#include "draw.h"
+#include "opt.h"
 
-// offset for the brailles
-#define BOFFSET 0x2800 
-#define BTABLEH 2
-#define BTABLEV 4
 
 int main(int argc, char ** argv) {
 
@@ -21,10 +20,26 @@ int main(int argc, char ** argv) {
     // create variables for maximum screen size
     int maxline, maxcol;
 
+    int i = 0;
+    int j = 0;
+
+
+    OPTION arg = {
+        {False}
+    };
+
+    // argument parser
+    for(i = 0; i < argc; i++) {
+        if(!strcmp(argv[i], "-d")) {
+            arg.bitopt.debug = True;
+        }
+    }
+    i = 0;
+
 
     // pointer for storing objects and its counter
     int objcounter = 0;
-    OBJ * objpoint[100];
+    OBJ * objpoint[100] = {NULL};
 
     // struct that contains the current position
     // for further information, look data.h/.c
@@ -32,7 +47,7 @@ int main(int argc, char ** argv) {
         {
             0,
             0,
-        }, // field for size
+       }, // field for size
         {
             0,
             0,
@@ -42,10 +57,6 @@ int main(int argc, char ** argv) {
 
     objpoint[objcounter] = &player;
     objcounter++;
-
-
-    int i = 0;
-    int j = 0;
 
     int character;
 
@@ -120,14 +131,8 @@ int main(int argc, char ** argv) {
 
         clear();
 
-        for(i = 0; i <= objcounter; i++) {
-            mvprintw(maxline - i, 0, "objnumber[%d]: braille position[%d][%d], cell position[%d][%d]", 
-                    i,
-                    objpoint[i] -> position.x % BTABLEH,
-                    objpoint[i] -> position.y % BTABLEV,
-                    objpoint[i] -> position.x / BTABLEH,
-                    objpoint[i] -> position.y / BTABLEV
-                    );
+        if(arg.bitopt.debug) {
+            draw_log(stdscr, objpoint, maxline);
         }
 
         refresh();

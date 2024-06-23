@@ -9,9 +9,12 @@ typedef enum DrawDirection {
     Horizontal,
 } DrawDirection;
 
-void draw_line(WINDOW * win, POSITION pos, DrawDirection direct, int x_length, int y_length);
+//void draw_line(WINDOW * win, COORDINATE pos, DrawDirection direct, int x_length, int y_length);
 
-void render(WINDOW * win, OBJ ** object, int delta);
+// function for drawing object log
+void draw_log(WINDOW * win, OBJ * object[], int maxline);
+
+void render(WINDOW * win, OBJ * object[], int delta);
 
 
 #endif
