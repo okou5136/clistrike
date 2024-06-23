@@ -22,6 +22,5 @@ typedef struct Object {
     COORDINATE position;
 } OBJ;
 
-
 #endif
 

@@ -11,4 +11,6 @@ typedef struct Option {
     BitOpt bitopt;
 } OPTION;
 
+OPTION parsearg(int argc, char ** argv);
+
 #endif
