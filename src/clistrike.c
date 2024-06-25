@@ -54,22 +54,6 @@ int main(int argc, char ** argv) {
 
     int character;
 
-    // matrix table for calculating brailles.
-    // look https://en.wikipedia.org/wiki/Braille_Patterns#Identifying,_naming_and_ordering
-    int braille_table[BTABLEH][BTABLEV] = {
-        {
-            0x1, // top left
-            0x2, 
-            0x4,
-            0x40, //bottom left 
-        },
-        {
-            0x8, // top right
-            0x10,
-            0x20,
-            0x80, // bottom right
-        }
-    };
 
     // initialize ncurses
     initscr();
@@ -130,6 +114,8 @@ int main(int argc, char ** argv) {
         if(arg.bitopt.debug) {
             draw_log(stdscr, objpoint, max);
         }
+
+        draw_line(stdscr, player, max);
 
 
         refresh();
